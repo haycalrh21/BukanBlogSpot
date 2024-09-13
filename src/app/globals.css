@@ -3,25 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+	--font-head: "Archivo Black", sans-serif;
+	--font-sans: "Share Tech", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Atur font secara global */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-head); /* Gunakan font head untuk heading */
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+p,
+span,
+div {
+	font-family: var(
+		--font-sans
+	); /* Gunakan font sans untuk paragraf dan elemen umum */
 }
