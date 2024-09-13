@@ -2,6 +2,7 @@ import "./globals.css";
 import { Providers } from "./(auth)/provider";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
 	title: "Bukan BlogSpot !",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
 				<Providers>
 					<Navbar />
 					{children}
+					<Analytics />
 					<Footer />
 				</Providers>
 			</body>
