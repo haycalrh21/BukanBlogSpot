@@ -15,13 +15,18 @@ const BlogSchema = new mongoose.Schema({
 	},
 	user: {
 		type: {
-			email: String,
+			username: String,
 			_id: mongoose.Schema.Types.ObjectId,
 		},
 		required: true,
 	},
 	imageThumbnail: {
 		type: String,
+		required: true,
+	},
+	date: {
+		type: Date,
+		default: Date.now, // Tanggal akan otomatis diset ke saat ini
 		required: true,
 	},
 });

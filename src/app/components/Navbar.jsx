@@ -10,6 +10,7 @@ export const Navbar = () => {
 	const [menuOne, setMenuOne] = useState(false);
 	const { data: session, status } = useSession();
 	const user = session?.user;
+	// console.log(user);
 	const controls = useAnimation();
 
 	const toggleMenu = () => {
@@ -51,19 +52,19 @@ export const Navbar = () => {
 						{/* tempat taro yg ke komen */}
 						<Link
 							href='/blog'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800'
+							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
 						>
 							Blog
 						</Link>
 						<Link
 							href='/about'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800'
+							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
 						>
 							Tentang
 						</Link>
 						<Link
 							href='#'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800'
+							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
 						>
 							FAQ
 						</Link>
@@ -76,7 +77,7 @@ export const Navbar = () => {
 						{session ? (
 							<>
 								<p className='font-inter rounded-lg px-6 py-4 text-center hover:text-gray-800 transition-colors'>
-									{user?.email}
+									{user?.username}
 								</p>
 								<button
 									onClick={() => signOut()}

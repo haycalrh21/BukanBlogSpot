@@ -65,7 +65,7 @@ export const saveBlog = async (items, user, title, slug, base64Thumbnail) => {
 		slug, // Set slug di sini
 		content: updatedItems,
 		user: {
-			email: user.email,
+			email: user.username,
 			_id: user._id,
 		},
 		imageThumbnail: thumbnailUrl, // Tambahkan thumbnail URL di sini

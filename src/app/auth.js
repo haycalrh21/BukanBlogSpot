@@ -1,11 +1,10 @@
-//auth.js
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import connectMongo from "@/app/libs/mongodb";
 import User from "@/app/model/user";
 import jwt from "jsonwebtoken";
+
 export const authOptions = {
 	session: {
 		strategy: "jwt",
@@ -15,14 +14,14 @@ export const authOptions = {
 	callbacks: {
 		async jwt({ token, user }) {
 			if (user?._id) token._id = user._id;
-			if (user?.name) token.name = user.name;
+			if (user?.username) token.username = user.username; // Ubah `name` menjadi `username`
 			if (user?.email) token.email = user.email;
 			return token;
 		},
 		async session({ session, token }) {
 			session.user = {
 				_id: token._id,
-				name: token.name,
+				username: token.username, // Ubah `name` menjadi `username`
 				email: token.email,
 			};
 			return session;
@@ -39,14 +38,16 @@ export const authOptions = {
 				await connectMongo();
 				const user = await User.findOne({ email: credentials.email });
 				if (!user) throw new Error("User not found");
+
 				const passwordMatch = await bcrypt.compare(
 					credentials.password,
 					user.password
 				);
 				if (!passwordMatch) throw new Error("Invalid email or password");
+
 				return {
 					_id: user._id,
-					name: user.name,
+					username: user.username, // Pastikan username dikembalikan di sini
 					email: user.email,
 				};
 			},

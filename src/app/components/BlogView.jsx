@@ -5,6 +5,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { formatDistanceToNow, parseISO } from "date-fns";
+import { id } from "date-fns/locale"; // Gunakan locale Indonesia
 
 const BlogView = () => {
 	const [blogs, setBlogs] = useState([]);
@@ -30,6 +32,7 @@ const BlogView = () => {
 					.slice(0, 8);
 
 				setBlogs(sortedBlogs);
+				// console.log(sortedBlogs);
 			} catch (error) {
 				console.error("Error fetching blogs:", error);
 			} finally {
@@ -57,6 +60,10 @@ const BlogView = () => {
 	const itemVariants = {
 		hidden: { opacity: 0, scale: 0.8 },
 		show: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+	};
+	const formatRelativeDate = (dateString) => {
+		const date = parseISO(dateString); // Parsing date ke format ISO
+		return formatDistanceToNow(date, { addSuffix: true, locale: id }); // Menampilkan selisih waktu dalam bahasa Indonesia
 	};
 
 	return (
@@ -112,6 +119,10 @@ const BlogView = () => {
 											<span className='font-semibold truncate w-[150px]'>
 												{blog.user?.email}
 											</span>
+										</div>
+										<div>
+											{/* Tampilkan tanggal dengan format relatif */}
+											<span>{formatRelativeDate(blog.date)}</span>
 										</div>
 									</Link>
 								</motion.div>
