@@ -8,7 +8,7 @@ export default async function DashboardPage({ params }) {
   console.log(parsedBlogs);
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold">{username}'s Dashboard</h1>
+      <h1 className="text-2xl font-bold">{username} Dashboard</h1>
       <ClientComponent initialBlogs={parsedBlogs} />
     </div>
   );
