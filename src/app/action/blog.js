@@ -3,6 +3,7 @@
 import Blog from "../model/blog";
 import cloudinary from "cloudinary";
 import connectMongo from "../libs/mongodb";
+import User from "../model/user";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -83,8 +84,20 @@ export async function fetchBlogs(slug) {
   return JSON.stringify(blogs);
 }
 
-export const fetchBlogUserId = async (userId) => {
+export const fetchBlogUserId = async (username) => {
   await connectMongo();
+  const userId = await fetchUserIdByUsername(username);
+
+  if (!userId) {
+    return JSON.stringify([]); // Atau throw error jika lebih sesuai
+  }
+
   const blogs = await Blog.find({ "user._id": userId });
   return JSON.stringify(blogs);
+};
+
+export const fetchUserIdByUsername = async (username) => {
+  await connectMongo();
+  const user = await User.findOne({ username }); // Menyesuaikan dengan field yang Anda miliki
+  return user ? user._id : null;
 };

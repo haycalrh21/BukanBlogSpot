@@ -10,7 +10,6 @@ export const Navbar = () => {
   const [menuOne, setMenuOne] = useState(false);
   const { data: session, status } = useSession();
   const user = session?.user;
-  // console.log(user);
   const controls = useAnimation();
 
   const toggleMenu = () => {
@@ -18,15 +17,19 @@ export const Navbar = () => {
     controls.start({ opacity: isOpen ? 0 : 1, y: isOpen ? -20 : 0 });
   };
 
-  const toggleSubMenu = () => {
-    setMenuOne(!menuOne);
+  const handleMenuClick = () => {
+    setIsOpen(false); // Tutup menu setelah diklik
   };
 
   return (
     <section>
       <nav className="bg-gray-100 mx-auto h-auto w-full max-w-screen-2xl lg:relative lg:top-0">
         <div className="flex flex-col px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-4 xl:px-20">
-          <Link href="/" className="flex items-center">
+          <Link
+            href="/"
+            className="flex items-center"
+            onClick={handleMenuClick}
+          >
             <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
             <motion.p
               className="text-md font-bold"
@@ -49,22 +52,24 @@ export const Navbar = () => {
               isOpen ? "" : "hidden"
             }`}
           >
-            {/* tempat taro yg ke komen */}
             <Link
               href="/blog"
               className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+              onClick={handleMenuClick}
             >
               Blog
             </Link>
             <Link
               href="/about"
               className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+              onClick={handleMenuClick}
             >
               Tentang
             </Link>
             <Link
               href="#"
               className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+              onClick={handleMenuClick}
             >
               FAQ
             </Link>
@@ -77,10 +82,18 @@ export const Navbar = () => {
             {session ? (
               <>
                 <p className="font-inter rounded-lg px-6 py-4 text-center hover:text-gray-800 transition-colors">
-                  <Link href="/dashboard">{user?.username}</Link>
+                  <Link
+                    href={`/dashboard/${user?.username}`}
+                    onClick={handleMenuClick}
+                  >
+                    {user?.username}
+                  </Link>
                 </p>
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                    handleMenuClick(); // Tutup menu setelah logout
+                  }}
                   style={{ backgroundColor: "#FDFA99" }}
                   className="px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all"
                 >
@@ -92,6 +105,7 @@ export const Navbar = () => {
                 <Link
                   href="/register"
                   className="px-8 py-3 bg-black border-2 border-slate-700 text-white shadow-md hover:shadow-xs transition-all"
+                  onClick={handleMenuClick}
                 >
                   Daftar
                 </Link>
@@ -99,6 +113,7 @@ export const Navbar = () => {
                   href="/login"
                   style={{ backgroundColor: "#FDFA99" }}
                   className="px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all"
+                  onClick={handleMenuClick}
                 >
                   Masuk
                 </Link>
