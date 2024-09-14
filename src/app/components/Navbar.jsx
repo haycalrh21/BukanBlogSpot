@@ -6,138 +6,138 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const Navbar = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [menuOne, setMenuOne] = useState(false);
-	const { data: session, status } = useSession();
-	const user = session?.user;
-	// console.log(user);
-	const controls = useAnimation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [menuOne, setMenuOne] = useState(false);
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  // console.log(user);
+  const controls = useAnimation();
 
-	const toggleMenu = () => {
-		setIsOpen(!isOpen);
-		controls.start({ opacity: isOpen ? 0 : 1, y: isOpen ? -20 : 0 });
-	};
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    controls.start({ opacity: isOpen ? 0 : 1, y: isOpen ? -20 : 0 });
+  };
 
-	const toggleSubMenu = () => {
-		setMenuOne(!menuOne);
-	};
+  const toggleSubMenu = () => {
+    setMenuOne(!menuOne);
+  };
 
-	return (
-		<section>
-			<nav className='bg-gray-100 mx-auto h-auto w-full max-w-screen-2xl lg:relative lg:top-0'>
-				<div className='flex flex-col px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-4 xl:px-20'>
-					<Link href='/' className='flex items-center'>
-						<Image src='/images/logo.png' alt='Logo' width={100} height={100} />
-						<motion.p
-							className='text-md font-bold'
-							initial={{ scale: 1 }}
-							whileHover={{
-								scale: 1.1,
-								rotate: 5,
-								transition: {
-									duration: 0.5,
-									repeat: Infinity,
-									repeatType: "reverse",
-								},
-							}}
-						>
-							Bukan BlogSpot!
-						</motion.p>
-					</Link>
-					<div
-						className={`mt-14 flex flex-col space-y-8 lg:mt-0 lg:flex lg:flex-row lg:space-x-1 lg:space-y-0 ${
-							isOpen ? "" : "hidden"
-						}`}
-					>
-						{/* tempat taro yg ke komen */}
-						<Link
-							href='/blog'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
-						>
-							Blog
-						</Link>
-						<Link
-							href='/about'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
-						>
-							Tentang
-						</Link>
-						<Link
-							href='#'
-							className='font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline'
-						>
-							FAQ
-						</Link>
-					</div>
-					<div
-						className={`flex flex-col space-y-8 lg:flex lg:flex-row lg:space-x-3 lg:space-y-0 ${
-							isOpen ? "" : "hidden"
-						}`}
-					>
-						{session ? (
-							<>
-								<p className='font-inter rounded-lg px-6 py-4 text-center hover:text-gray-800 transition-colors'>
-									{user?.username}
-								</p>
-								<button
-									onClick={() => signOut()}
-									style={{ backgroundColor: "#FDFA99" }}
-									className='px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all'
-								>
-									Keluar
-								</button>
-							</>
-						) : (
-							<>
-								<Link
-									href='/register'
-									className='px-8 py-3 bg-black border-2 border-slate-700 text-white shadow-md hover:shadow-xs transition-all'
-								>
-									Daftar
-								</Link>
-								<Link
-									href='/login'
-									style={{ backgroundColor: "#FDFA99" }}
-									className='px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all'
-								>
-									Masuk
-								</Link>
-							</>
-						)}
-					</div>
+  return (
+    <section>
+      <nav className="bg-gray-100 mx-auto h-auto w-full max-w-screen-2xl lg:relative lg:top-0">
+        <div className="flex flex-col px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-4 xl:px-20">
+          <Link href="/" className="flex items-center">
+            <Image src="/images/logo.png" alt="Logo" width={100} height={100} />
+            <motion.p
+              className="text-md font-bold"
+              initial={{ scale: 1 }}
+              whileHover={{
+                scale: 1.1,
+                rotate: 5,
+                transition: {
+                  duration: 0.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                },
+              }}
+            >
+              Bukan BlogSpot!
+            </motion.p>
+          </Link>
+          <div
+            className={`mt-14 flex flex-col space-y-8 lg:mt-0 lg:flex lg:flex-row lg:space-x-1 lg:space-y-0 ${
+              isOpen ? "" : "hidden"
+            }`}
+          >
+            {/* tempat taro yg ke komen */}
+            <Link
+              href="/blog"
+              className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/about"
+              className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+            >
+              Tentang
+            </Link>
+            <Link
+              href="#"
+              className="font-inter rounded-lg lg:px-6 lg:py-4 lg:hover:text-gray-800 hover:underline"
+            >
+              FAQ
+            </Link>
+          </div>
+          <div
+            className={`flex flex-col space-y-8 lg:flex lg:flex-row lg:space-x-3 lg:space-y-0 ${
+              isOpen ? "" : "hidden"
+            }`}
+          >
+            {session ? (
+              <>
+                <p className="font-inter rounded-lg px-6 py-4 text-center hover:text-gray-800 transition-colors">
+                  <Link href="/dashboard">{user?.username}</Link>
+                </p>
+                <button
+                  onClick={() => signOut()}
+                  style={{ backgroundColor: "#FDFA99" }}
+                  className="px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all"
+                >
+                  Keluar
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/register"
+                  className="px-8 py-3 bg-black border-2 border-slate-700 text-white shadow-md hover:shadow-xs transition-all"
+                >
+                  Daftar
+                </Link>
+                <Link
+                  href="/login"
+                  style={{ backgroundColor: "#FDFA99" }}
+                  className="px-8 py-3 -2 border-black shadow-md hover:shadow-xs transition-all"
+                >
+                  Masuk
+                </Link>
+              </>
+            )}
+          </div>
 
-					<button className='absolute right-5 lg:hidden' onClick={toggleMenu}>
-						<svg
-							width='24'
-							height='24'
-							viewBox='0 0 24 24'
-							fill='none'
-							xmlns='http://www.w3.org/2000/svg'
-						>
-							<path
-								d='M3.75 12H20.25'
-								stroke='#160042'
-								strokeWidth='2'
-								strokeLinecap='round'
-							/>
-							<path
-								d='M3.75 6H20.25'
-								stroke='#160042'
-								strokeWidth='2'
-								strokeLinecap='round'
-							/>
-							<path
-								d='M3.75 18H20.25'
-								stroke='#160042'
-								strokeWidth='2'
-								strokeLinecap='round'
-							/>
-						</svg>
-					</button>
-				</div>
-			</nav>
-		</section>
-	);
+          <button className="absolute right-5 lg:hidden" onClick={toggleMenu}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.75 12H20.25"
+                stroke="#160042"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M3.75 6H20.25"
+                stroke="#160042"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M3.75 18H20.25"
+                stroke="#160042"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </section>
+  );
 };
 
 // <div className='relative flex flex-col'>
